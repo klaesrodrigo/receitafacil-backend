@@ -63,5 +63,24 @@ routes.put("/:id", (req, res) => {
     }
 });
 
+routes.delete("/:id", (req, res) => {
+    try {
+        var connection = mysql.createConnection(config.db);
+        var id = req.params;
+
+        connection.query(usuario.usuarioDAO.delete,id, (err, result) => {
+            if (err){
+                console.log(err);
+                return res.status(400).send({ error: 'Erro ao conectar com o banco (usuario)' });
+            }
+            return res.send(result);
+        });
+        connection.end();
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(400).send({ error: 'Erro ao inserir usuário' });
+    }
+});
 
 module.exports = app => app.use('/usuario', routes);
