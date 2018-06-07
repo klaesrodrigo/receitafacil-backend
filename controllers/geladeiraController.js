@@ -1,15 +1,15 @@
 var mysql = require('mysql');
-var config = require('./../config');
+var config = require('../config');
 var routes = require('express').Router();
-var usuarioDAO = require('../dao/querys').usuarioDAO;
+var geladeiraDAO = require('../dao/querys').geladeiraDAO;
 
 routes.get('/', (req, res) => {
     try {
         var connection = mysql.createConnection(config.db);
-        connection.query(usuarioDAO.selectAll, (err, result) => {
+        connection.query(geladeiraDAO.selectAll, (err, result) => {
             if (err) {
                 console.log(err);
-                return res.status(400).send({ error: 'Erro ao conectar com o banco (usuario)' });
+                return res.status(400).send({ error: 'Erro ao conectar com o banco (geladeira)' });
             }
             return res.send(result);
         });
@@ -26,10 +26,10 @@ routes.get('/:id', (req, res) => {
         var connection = mysql.createConnection(config.db);
         var id = req.params;
 
-        connection.query(usuarioDAO.selectById, id, (err, result) => {
+        connection.query(geladeiraDAO.selectByIdUsuario, id, (err, result) => {
             if (err) {
                 console.log(err);
-                return res.status(400).send({ error: 'Erro ao conectar com o banco (usuario)' });
+                return res.status(400).send({ error: 'Erro ao conectar com o banco (geladeira)' });
             }
             return res.send(result);
         });
@@ -37,7 +37,7 @@ routes.get('/:id', (req, res) => {
     }
     catch (err) {
         console.log(err);
-        return res.status(400).send({ error: 'Erro ao listar usuários' });
+        return res.status(400).send({ error: 'Erro ao listar geladeira' });
     }
 });
 
@@ -45,10 +45,10 @@ routes.post("/", (req, res) => {
     try {
         var connection = mysql.createConnection(config.db);
         var user = req.body;
-        connection.query(usuarioDAO.insert, user, (err, result) => {
+        connection.query(geladeiraDAO.insert, user, (err, result) => {
             if (err) {
                 console.log(err);
-                return res.status(400).send({ error: 'Erro ao conectar com o banco (usuario)' });
+                return res.status(400).send({ error: 'Erro ao conectar com o banco (geladeira)' });
             }
             return res.send(result);
         });
@@ -56,7 +56,7 @@ routes.post("/", (req, res) => {
     }
     catch (err) {
         console.log(err);
-        return res.status(400).send({ error: 'Erro ao inserir usuário' });
+        return res.status(400).send({ error: 'Erro ao inserir geladeira' });
     }
 });
 
@@ -68,10 +68,10 @@ routes.put("/:id", (req, res) => {
 
         var data = [user, id]
 
-        connection.query(usuarioDAO.update, data, (err, result) => {
+        connection.query(geladeiraDAO.update, data, (err, result) => {
             if (err) {
                 console.log(err);
-                return res.status(400).send({ error: 'Erro ao conectar com o banco (usuario)' });
+                return res.status(400).send({ error: 'Erro ao conectar com o banco (geladeira)' });
             }
             return res.send(result);
         });
@@ -79,7 +79,7 @@ routes.put("/:id", (req, res) => {
     }
     catch (err) {
         console.log(err);
-        return res.status(400).send({ error: 'Erro ao fazer update do usuário' });
+        return res.status(400).send({ error: 'Erro ao fazer update da geladeira' });
     }
 });
 
@@ -88,10 +88,10 @@ routes.delete("/:id", (req, res) => {
         var connection = mysql.createConnection(config.db);
         var id = req.params;
 
-        connection.query(usuarioDAO.delete, id, (err, result) => {
+        connection.query(geladeiraDAO.delete, id, (err, result) => {
             if (err) {
                 console.log(err);
-                return res.status(400).send({ error: 'Erro ao conectar com o banco (usuario)' });
+                return res.status(400).send({ error: 'Erro ao conectar com o banco (geladeira)' });
             }
             return res.send(result);
         });
@@ -99,8 +99,8 @@ routes.delete("/:id", (req, res) => {
     }
     catch (err) {
         console.log(err);
-        return res.status(400).send({ error: 'Erro ao remover usuário' });
+        return res.status(400).send({ error: 'Erro ao remover geladeira' });
     }
 });
 
-module.exports = app => app.use('/usuario', routes);
+module.exports = app => app.use('/geladeira', routes);
