@@ -26,7 +26,7 @@ routes.get('/:id', (req, res) => {
         var connection = mysql.createConnection(config.db);
         var id = req.params;
 
-        connection.query(tipoDAO.selectById, id, (err, result) => {
+        connection.query(tipoDAO.selectBy, id, (err, result) => {
             if (err) {
                 console.log(err);
                 return res.status(400).send({ error: 'Erro ao conectar com o banco (tipo)' });

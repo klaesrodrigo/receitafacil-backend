@@ -21,12 +21,32 @@ routes.get('/', (req, res) => {
     }
 });
 
+routes.get('/usuario/:id', (req, res) => {
+    try {
+        var connection = mysql.createConnection(config.db);
+        var idUsuario = req.params;
+
+        connection.query(geladeiraDAO.selectBy, idUsuario, (err, result) => {
+            if (err) {
+                console.log(err);
+                return res.status(400).send({ error: 'Erro ao conectar com o banco (geladeira)' });
+            }
+            return res.send(result);
+        });
+        connection.end();
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(400).send({ error: 'Erro ao listar geladeira' });
+    }
+});
+
 routes.get('/:id', (req, res) => {
     try {
         var connection = mysql.createConnection(config.db);
         var id = req.params;
 
-        connection.query(geladeiraDAO.selectByIdUsuario, id, (err, result) => {
+        connection.query(geladeiraDAO.selectBy, id, (err, result) => {
             if (err) {
                 console.log(err);
                 return res.status(400).send({ error: 'Erro ao conectar com o banco (geladeira)' });

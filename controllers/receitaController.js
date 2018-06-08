@@ -1,15 +1,15 @@
 var mysql = require('mysql');
 var config = require('../config');
 var routes = require('express').Router();
-var ingredienteDAO = require('../dao/querys').ingredienteDAO;
+var receitaDAO = require('../dao/querys').receitaDAO;
 
 routes.get('/', (req, res) => {
     try {
         var connection = mysql.createConnection(config.db);
-        connection.query(ingredienteDAO.selectAll, (err, result) => {
+        connection.query(receitaDAO.selectAll, (err, result) => {
             if (err) {
                 console.log(err);
-                return res.status(400).send({ error: 'Erro ao conectar com o banco (ingrediente)' });
+                return res.status(400).send({ error: 'Erro ao conectar com o banco (receita)' });
             }
             return res.send(result);
         });
@@ -17,7 +17,7 @@ routes.get('/', (req, res) => {
     }
     catch (err) {
         console.log(err);
-        return res.status(400).send({ error: 'Erro ao listar ingrediente' });
+        return res.status(400).send({ error: 'Erro ao listar usuários' });
     }
 });
 
@@ -26,10 +26,10 @@ routes.get('/:id', (req, res) => {
         var connection = mysql.createConnection(config.db);
         var id = req.params;
 
-        connection.query(ingredienteDAO.selectBy, id, (err, result) => {
+        connection.query(receitaDAO.selectBy, id, (err, result) => {
             if (err) {
                 console.log(err);
-                return res.status(400).send({ error: 'Erro ao conectar com o banco (ingrediente)' });
+                return res.status(400).send({ error: 'Erro ao conectar com o banco (receita)' });
             }
             return res.send(result);
         });
@@ -37,7 +37,7 @@ routes.get('/:id', (req, res) => {
     }
     catch (err) {
         console.log(err);
-        return res.status(400).send({ error: 'Erro ao listar ingrediente' });
+        return res.status(400).send({ error: 'Erro ao listar receita' });
     }
 });
 
@@ -46,10 +46,10 @@ routes.get('/tipo/:id', (req, res) => {
         var connection = mysql.createConnection(config.db);
         var idTipo = req.params;
 
-        connection.query(ingredienteDAO.selectBy, idTipo, (err, result) => {
+        connection.query(receitaDAO.selectBy, idTipo, (err, result) => {
             if (err) {
                 console.log(err);
-                return res.status(400).send({ error: 'Erro ao conectar com o banco (ingrediente)' });
+                return res.status(400).send({ error: 'Erro ao conectar com o banco (receita)' });
             }
             return res.send(result);
         });
@@ -57,7 +57,7 @@ routes.get('/tipo/:id', (req, res) => {
     }
     catch (err) {
         console.log(err);
-        return res.status(400).send({ error: 'Erro ao listar ingrediente' });
+        return res.status(400).send({ error: 'Erro ao listar receita' });
     }
 });
 
@@ -65,10 +65,10 @@ routes.post("/", (req, res) => {
     try {
         var connection = mysql.createConnection(config.db);
         var user = req.body;
-        connection.query(ingredienteDAO.insert, user, (err, result) => {
+        connection.query(receitaDAO.insert, user, (err, result) => {
             if (err) {
                 console.log(err);
-                return res.status(400).send({ error: 'Erro ao conectar com o banco (ingrediente)' });
+                return res.status(400).send({ error: 'Erro ao conectar com o banco (receita)' });
             }
             return res.send(result);
         });
@@ -76,7 +76,7 @@ routes.post("/", (req, res) => {
     }
     catch (err) {
         console.log(err);
-        return res.status(400).send({ error: 'Erro ao inserir ingrediente' });
+        return res.status(400).send({ error: 'Erro ao inserir receita' });
     }
 });
 
@@ -88,10 +88,10 @@ routes.put("/:id", (req, res) => {
 
         var data = [user, id]
 
-        connection.query(ingredienteDAO.update, data, (err, result) => {
+        connection.query(receitaDAO.update, data, (err, result) => {
             if (err) {
                 console.log(err);
-                return res.status(400).send({ error: 'Erro ao conectar com o banco (ingrediente)' });
+                return res.status(400).send({ error: 'Erro ao conectar com o banco (receita)' });
             }
             return res.send(result);
         });
@@ -99,7 +99,7 @@ routes.put("/:id", (req, res) => {
     }
     catch (err) {
         console.log(err);
-        return res.status(400).send({ error: 'Erro ao fazer update da ingrediente' });
+        return res.status(400).send({ error: 'Erro ao fazer update da receita' });
     }
 });
 
@@ -108,10 +108,10 @@ routes.delete("/:id", (req, res) => {
         var connection = mysql.createConnection(config.db);
         var id = req.params;
 
-        connection.query(ingredienteDAO.delete, id, (err, result) => {
+        connection.query(receitaDAO.delete, id, (err, result) => {
             if (err) {
                 console.log(err);
-                return res.status(400).send({ error: 'Erro ao conectar com o banco (ingrediente)' });
+                return res.status(400).send({ error: 'Erro ao conectar com o banco (receita)' });
             }
             return res.send(result);
         });
@@ -119,8 +119,8 @@ routes.delete("/:id", (req, res) => {
     }
     catch (err) {
         console.log(err);
-        return res.status(400).send({ error: 'Erro ao remover ingrediente' });
+        return res.status(400).send({ error: 'Erro ao remover receita' });
     }
 });
 
-module.exports = app => app.use('/ingrediente', routes);
+module.exports = app => app.use('/receita', routes);
