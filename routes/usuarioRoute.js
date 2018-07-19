@@ -1,7 +1,11 @@
 const routes = require('express').Router();
 const controller = require('../controllers/usuarioController')
 
-routes.route('/').get(controller.getUsuario).post(controller.postUsuario);
-routes.route('/:id').get(controller.getUsuarioById).put(controller.putUsuario).delete(controller.deleteUsuario);
+routes
+    .get('/', controller.getUsuario)
+    .get('/:id', controller.getUsuarioById)
+    .post('/', controller.postUsuario)    
+    .put('/:id', controller.putUsuario)
+    .delete('/:id', controller.deleteUsuario);
 
 module.exports = app => app.use('/usuario', routes);
