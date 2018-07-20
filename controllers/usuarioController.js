@@ -15,10 +15,10 @@ module.exports = {
             return res.status(400).send({ error: 'Erro ao listar usuários' });
         }
     },
-    getUsuarioById: (req, res) => {
+    getUsuarioBy: (req, res) => {
         try {
             Usuario
-                .where('id', req.params.id)
+                .where(req.params)
                 .fetchAll()
                 .then(usuario => res.json({ usuario }))
                 .catch(err => {
@@ -34,7 +34,8 @@ module.exports = {
     postUsuario: (req, res) => {
         try {
             new Usuario(req.body)
-                .save().then(saved => res.json({ saved }))
+                .save()
+                .then(saved => res.json({ saved }))
                 .catch(err => {
                     console.log(err);
                     res.status(400).send({ error: 'Erro: ' + err });
@@ -48,7 +49,7 @@ module.exports = {
     putUsuario: (req, res) => {
         try {
             Usuario
-                .where('id', req.params.id)
+                .where(req.params)
                 .fetch()
                 .then(usuario => {
                     usuario
@@ -68,7 +69,7 @@ module.exports = {
     deleteUsuario: (req, res) => {
         try {
             Usuario
-                .where('id', req.params.id)
+                .where(req.params)
                 .destroy()
                 .then(destroyed => res.json({ destroyed }))
                 .catch(err => {

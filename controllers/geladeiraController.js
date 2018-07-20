@@ -3,11 +3,11 @@ module.exports = {
     getGeladeira: (req, res) => {
         try {
             Geladeira
-                .fetchAll({ withRelated: ['usuario'] })
+                .fetchAll({ withRelated: ['usuario', 'ingrediente'] })
                 .then(geladeira => res.json({ geladeira }))
                 .catch(err => {
                     console.log(err);
-                    res.status(400).send({ error: 'Erro: ' + err });
+                    res.status(400).send({ err });
                 });
         }
         catch (err) {
@@ -15,27 +15,11 @@ module.exports = {
             return res.status(400).send({ error: 'Erro ao listar geladeiras' });
         }
     },
-    getGeladeiraById: (req, res) => {
+    getGeladeiraBy: (req, res) => {
         try {
             Geladeira
-                .where('id', req.params.id)
-                .fetchAll({ withRelated: ['usuario'] })
-                .then(geladeira => res.json({ geladeira }))
-                .catch(err => {
-                    console.log(err);
-                    res.status(400).send({ error: 'Erro: ' + err });
-                });
-        }
-        catch (err) {
-            console.log(err);
-            return res.status(400).send({ error: 'Erro ao listar geladeira' });
-        }
-    },
-    getGeladeiraByUsuario: (req, res) => {
-        try {
-            Geladeira
-                .where('idUsuario', req.params.id)
-                .fetchAll({ withRelated: ['usuario'] })
+                .where(req.params)
+                .fetchAll({ withRelated: ['usuario', 'ingrediente'] })
                 .then(geladeira => res.json({ geladeira }))
                 .catch(err => {
                     console.log(err);
@@ -50,7 +34,8 @@ module.exports = {
     postGeladeira: (req, res) => {
         try {
             new Geladeira(req.body)
-                .save().then(saved => res.json({ saved }))
+                .save()
+                .then(saved => res.json({ saved }))
                 .catch(err => {
                     console.log(err);
                     res.status(400).send({ error: 'Erro: ' + err });
@@ -64,7 +49,7 @@ module.exports = {
     putGeladeira: (req, res) => {
         try {
             Geladeira
-                .where('id', req.params.id)
+                .where(req.params)
                 .fetch()
                 .then(geladeira => {
                     geladeira
@@ -84,7 +69,7 @@ module.exports = {
     deleteGeladeira: (req, res) => {
         try {
             Geladeira
-                .where('id', req.params.id)
+                .where(req.params)
                 .destroy()
                 .then(destroyed => res.json({ destroyed }))
                 .catch(err => {

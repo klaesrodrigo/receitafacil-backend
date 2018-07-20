@@ -3,7 +3,7 @@ const controller = require('../controllers/usuarioController')
 
 routes
     .get('/', controller.getUsuario)
-    .get('/:id', controller.getUsuarioById)
+    .get('/:id', controller.getUsuarioBy)
     .post('/', controller.postUsuario)    
     .put('/:id', controller.putUsuario)
     .delete('/:id', controller.deleteUsuario);
