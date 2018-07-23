@@ -57,6 +57,10 @@ module.exports = {
                         .save(req.body)
                         .then(saved => res.json({ saved }));
                 })
+                .catch(err => {
+                    console.log(err);
+                    res.status(400).send({ err })
+                });
         }
         catch (err) {
             console.log(err);
@@ -71,7 +75,7 @@ module.exports = {
                 .then(destroyed => res.json({ destroyed }))
                 .catch(err => {
                     console.log(err);
-                    res.status(400).send({ error: 'Erro: ' + err });
+                    res.status(400).send({ err });
                 });
         }
         catch (err) {
