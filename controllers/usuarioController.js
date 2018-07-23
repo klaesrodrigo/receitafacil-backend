@@ -7,7 +7,7 @@ module.exports = {
                 .then(usuario => res.json({ usuario }))
                 .catch(err => {
                     console.log(err);
-                    res.status(400).send({ error: 'Erro: ' + err });
+                    res.status(400).send({ err });
                 });
         }
         catch (err) {
@@ -23,7 +23,7 @@ module.exports = {
                 .then(usuario => res.json({ usuario }))
                 .catch(err => {
                     console.log(err);
-                    res.status(400).send({ error: 'Erro: ' + err });
+                    res.status(400).send({ err });
                 });
         }
         catch (err) {
@@ -38,7 +38,7 @@ module.exports = {
                 .then(saved => res.json({ saved }))
                 .catch(err => {
                     console.log(err);
-                    res.status(400).send({ error: 'Erro: ' + err });
+                    res.status(400).send({ err });
                 });
         }
         catch (err) {
@@ -58,7 +58,7 @@ module.exports = {
                 })
                 .catch(err => {
                     console.log(err);
-                    res.status(400).send({ error: 'Erro: ' + err });
+                    res.status(400).send({ err });
                 });
         }
         catch (err) {
@@ -74,7 +74,7 @@ module.exports = {
                 .then(destroyed => res.json({ destroyed }))
                 .catch(err => {
                     console.log(err);
-                    res.status(400).send({ error: 'Erro: ' + err });
+                    res.status(400).send({ err });
                 });
         }
         catch (err) {
