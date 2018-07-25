@@ -36,11 +36,9 @@ CREATE TABLE geladeiraIngrediente (
     idIngrediente INT NOT NULL,
 
     PRIMARY KEY (idGeladeira, idIngrediente),
-    FOREIGN KEY (idGeladeira) REFERENCES geladeira (id),
-    FOREIGN KEY (idIngrediente) REFERENCES ingrediente (id)
+    FOREIGN KEY (idGeladeira) REFERENCES geladeira (id) ON DELETE CASCADE,
+    FOREIGN KEY (idIngrediente) REFERENCES ingrediente (id) ON DELETE CASCADE
 );
-
-
 
 CREATE TABLE receita(
     id INT NOT NULL AUTO_INCREMENT,
@@ -58,8 +56,8 @@ CREATE TABLE ingredienteReceita (
     idIngrediente INT NOT NULL,
 
     PRIMARY KEY (idReceita, idIngrediente),
-    FOREIGN KEY (idReceita) REFERENCES receita (id),
-    FOREIGN KEY (idIngrediente) REFERENCES ingrediente (id)
+    FOREIGN KEY (idReceita) REFERENCES receita (id) ON DELETE CASCADE,
+    FOREIGN KEY (idIngrediente) REFERENCES ingrediente (id) ON DELETE CASCADE
 );
 
 CREATE TABLE historico (
@@ -75,6 +73,6 @@ CREATE TABLE historicoReceita (
     idHistorico INT NOT NULL,
 
     PRIMARY KEY (idReceita, idHistorico),
-    FOREIGN KEY (idReceita) REFERENCES receita (id),
-    FOREIGN KEY (idHistorico) REFERENCES historico (id)
+    FOREIGN KEY (idReceita) REFERENCES receita (id) ON DELETE CASCADE,
+    FOREIGN KEY (idHistorico) REFERENCES historico (id) ON DELETE CASCADE
 );

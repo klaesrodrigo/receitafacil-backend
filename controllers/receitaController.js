@@ -13,7 +13,7 @@ module.exports = {
         }
         catch (err) {
             console.log(err);
-            return res.status(400).send({ error: 'Erro ao listar usuários' });
+            return res.status(400).send({ error: 'Erro ao listar receitas' });
         }
     },
     getReceitaBy: (req, res) => {
@@ -47,7 +47,6 @@ module.exports = {
                     console.log(err);
                     res.status(400).send({ err });
                 });
-
         }
         catch (err) {
             console.log(err);
@@ -79,22 +78,19 @@ module.exports = {
         }
         catch (err) {
             console.log(err);
-            return res.status(400).send({ error: 'Erro ao fazer update da receita' });
+            return res.status(400).send({ error: 'Erro ao fazer update de receita' });
         }
     },
     deleteReceita: (req, res) => {
         try {
-            var connection = mysql.createConnection(config.db);
-            var id = req.params;
-
-            connection.query(receitaDAO.delete, id, (err, result) => {
-                if (err) {
+            Receita
+                .where(req.params)
+                .destroy()
+                .then(destroyed => res.json({ destroyed }))
+                .catch(err => {
                     console.log(err);
-                    return res.status(400).send({ error: 'Erro ao conectar com o banco (receita)' });
-                }
-                return res.send(result);
-            });
-            connection.end();
+                    res.status(400).send({ err });
+                });
         }
         catch (err) {
             console.log(err);
